@@ -1,0 +1,82 @@
+{
+  "expo": {
+    "name": "CTC Santé",
+    "slug": "ctc-sante",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#3A8B8B"
+    },
+    "assetBundlePatterns": ["**/*"],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.ctcsante.app",
+      "buildNumber": "1.0.0",
+      "config": {
+        "usesNonExemptEncryption": false
+      },
+      "infoPlist": {
+        "NSLocationWhenInUseUsageDescription": "Nous avons besoin de votre localisation pour assigner les courses",
+        "NSLocationAlwaysAndWhenInUseUsageDescription": "Nous avons besoin de votre localisation en arrière-plan",
+        "NSPhotoLibraryUsageDescription": "Utilisé pour télécharger des photos de courses",
+        "NSCameraUsageDescription": "Utilisé pour prendre des photos de courses"
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#3A8B8B"
+      },
+      "package": "com.ctcsante.app",
+      "versionCode": 1,
+      "permissions": [
+        "ACCESS_FINE_LOCATION",
+        "ACCESS_COARSE_LOCATION",
+        "CAMERA",
+        "READ_EXTERNAL_STORAGE",
+        "WRITE_EXTERNAL_STORAGE"
+      ]
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      [
+        "expo-location",
+        {
+          "locationAlwaysAndWhenInUsePermission": "Nous avons besoin de votre localisation"
+        }
+      ],
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "Nous avons besoin d'accéder à votre appareil photo"
+        }
+      ],
+      [
+        "expo-notifications",
+        {
+          "icon": "./assets/notification-icon.png",
+          "color": "#3A8B8B"
+        }
+      ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "your-project-id-here"
+      }
+    },
+    "owner": "ctc-sante",
+    "runtimeVersion": {
+      "policy": "sdkVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/your-project-id-here",
+      "fallbackToCacheTimeout": 30000
+    }
+  }
+}

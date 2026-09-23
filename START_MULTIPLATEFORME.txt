@@ -1,0 +1,249 @@
+═══════════════════════════════════════════════════════════════════════════════
+  CTC SANTÉ - GUIDE DE DÉMARRAGE MULTI-PLATEFORME
+═══════════════════════════════════════════════════════════════════════════════
+
+🚀 TU AS 3 APPLICATIONS À CRÉER (ou plus!)
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ 🌐 PWA (Web Installable) - DÉMARRER MAINTENANT                              │
+├─────────────────────────────────────────────────────────────────────────────┤
+│ Installation : 0 (ça marche directement)                                    │
+│ Plateformes  : Windows, macOS, Linux, Android, iOS                          │
+│ Temps build  : 2-5 minutes                                                  │
+│ App Store    : Non (web seulement)                                          │
+│ Offline      : ✅ Oui                                                        │
+│ Notifications: ✅ Oui (Web Push)                                             │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+COMMANDES PWA :
+
+1️⃣  Accède au dossier
+    cd ctc-sante-app
+
+2️⃣  Copie la config PWA
+    cp ../next.config.pwa.js ./next.config.js
+
+3️⃣  Installe next-pwa
+    npm install next-pwa
+
+4️⃣  Lance le serveur
+    npm run dev
+
+5️⃣  Ouvre dans le navigateur
+    http://localhost:3000
+
+6️⃣  Clique "Installer l'app" (coin haut droit du navigateur)
+    → L'app s'installe comme une app native! 🎉
+
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ 📱 REACT NATIVE + EXPO (iOS + Android) - SEMAINE 1                          │
+├─────────────────────────────────────────────────────────────────────────────┤
+│ Installation : 30 min (créer compte Expo)                                   │
+│ Plateformes  : iOS, Android                                                 │
+│ Temps build  : 15-20 min (première fois)                                    │
+│ App Store    : ✅ Oui (App Store + Play Store)                              │
+│ Offline      : ✅ Oui                                                        │
+│ Notifications: ✅ Oui (Push native)                                          │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+COMMANDES REACT NATIVE :
+
+1️⃣  Crée compte Expo
+    https://expo.dev/signup
+
+2️⃣  Installe Expo CLI
+    npm install -g eas-cli
+
+3️⃣  Accède au dossier
+    cd ctc-sante-mobile
+
+4️⃣  Installe les dépendances
+    npm install
+
+5️⃣  Initialise Expo
+    eas build:configure
+
+6️⃣  Lance localement (dev)
+    npm start
+
+7️⃣  Teste sur Android
+    npm run android
+
+8️⃣  Teste sur iOS (Mac seulement)
+    npm run ios
+
+9️⃣  Build pour Play Store / App Store
+    eas build --platform android
+    eas build --platform ios
+
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ 🖥️  ELECTRON (Windows/Mac/Linux Desktop) - SEMAINE 2                        │
+├─────────────────────────────────────────────────────────────────────────────┤
+│ Installation : 20 min                                                       │
+│ Plateformes  : Windows, macOS, Linux                                        │
+│ Temps build  : 10-15 min                                                    │
+│ App Store    : Oui (Windows/Mac/Linux respectifs)                           │
+│ Offline      : ✅ Oui (SQLite local)                                         │
+│ Notifications: ✅ Oui (Native)                                               │
+│ Avantage     : Database locale, accès fichiers                              │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+COMMANDES ELECTRON :
+
+1️⃣  Accède au dossier
+    cd ctc-sante-desktop
+
+2️⃣  Installe les dépendances
+    npm install
+
+3️⃣  Lance en dev
+    npm run electron-dev
+
+4️⃣  Build Windows (.exe)
+    npm run electron-build-win
+    → Fichier : dist/CTC Santé Setup 1.0.0.exe
+
+5️⃣  Build macOS (.dmg)
+    npm run electron-build-mac
+    → Fichier : dist/CTC Santé-1.0.0.dmg
+
+6️⃣  Build Linux (.AppImage / .deb)
+    npm run electron-build-linux
+    → Fichiers : dist/CTC Santé-1.0.0.AppImage
+                  dist/ctc-sante-desktop_1.0.0_amd64.deb
+
+
+═══════════════════════════════════════════════════════════════════════════════
+  🔐 SÉCURITÉ POUR CHAQUE PLATEFORME
+═══════════════════════════════════════════════════════════════════════════════
+
+✅ Tokens stockés de manière sécurisée :
+   - PWA      : Service Worker + localStorage (HTTPS)
+   - React    : Expo.SecureStore (chiffré)
+   - Electron : keytar + SQLite (chiffré)
+
+✅ Données chiffrées en transit (HTTPS/TLS)
+
+✅ Authentification JWT valide 24h
+
+✅ Base de données locale pour offline-first
+
+✅ No hardcoded secrets
+
+
+═══════════════════════════════════════════════════════════════════════════════
+  📋 CHECKLIST DE DÉPLOIEMENT
+═══════════════════════════════════════════════════════════════════════════════
+
+PWA:
+  ☐ Installer next-pwa
+  ☐ Copier next.config.pwa.js
+  ☐ Tester localement (npm run dev)
+  ☐ Tester l'installation (bouton "Installer")
+  ☐ Build production (npm run build)
+  ☐ Déployer sur Vercel / autre serveur
+
+React Native (Android):
+  ☐ Créer compte Expo (expo.dev)
+  ☐ Créer compte Google Play Developer ($25)
+  ☐ npm install -g eas-cli
+  ☐ eas build:configure
+  ☐ Tester en dev (npm start → npm run android)
+  ☐ Build production (eas build --platform android)
+  ☐ Upload Play Store via Google Play Console
+
+React Native (iOS):
+  ☐ Mac requis
+  ☐ Créer compte Apple Developer ($99/an)
+  ☐ Générer certificats dans Xcode
+  ☐ Tester en dev (npm run ios)
+  ☐ Build production (eas build --platform ios)
+  ☐ Upload App Store via Transporter
+
+Electron (Windows):
+  ☐ npm install
+  ☐ Tester en dev (npm run electron-dev)
+  ☐ Build (npm run electron-build-win)
+  ☐ Upload server / distribution
+
+Electron (macOS):
+  ☐ npm install
+  ☐ Tester en dev (npm run electron-dev)
+  ☐ Build (npm run electron-build-mac)
+  ☐ Notarize (Apple requirement)
+  ☐ Upload server
+
+Electron (Linux):
+  ☐ npm install
+  ☐ Tester en dev (npm run electron-dev)
+  ☐ Build (npm run electron-build-linux)
+  ☐ Upload .AppImage ou .deb
+
+
+═══════════════════════════════════════════════════════════════════════════════
+  🎯 RECOMMANDATION HASSAN
+═══════════════════════════════════════════════════════════════════════════════
+
+SEMAINE 1 - PWA (Accessible PARTOUT):
+  → npm install next-pwa
+  → Testé et installable sur tous les appareils
+  → Utilisateurs peuvent l'utiliser immédiatement
+
+SEMAINE 2-3 - React Native (Vraies apps mobiles):
+  → Google Play Store (Android)
+  → Apple App Store (iOS)
+  → Plus professionnel, meilleure performance
+
+SEMAINE 4 - Electron (Desktop complet):
+  → Windows .exe
+  → macOS .dmg
+  → Linux AppImage/deb
+  → Accès fichiers local, SQLite, etc.
+
+RÉSULTAT: UNE SEULE APP SUR 6 PLATEFORME! 🚀
+
+
+═══════════════════════════════════════════════════════════════════════════════
+  💻 INSTALLATION POUR UTILISATEURS FINAUX
+═══════════════════════════════════════════════════════════════════════════════
+
+ÉTABLISSEMENTS (hôpitaux):
+  ✅ Vont sur le site web → "Installer l'app" (PWA)
+  ✅ Ou téléchargent sur Play Store (Android)
+  ✅ Ou téléchargent sur App Store (iOS)
+
+TAXIS:
+  ✅ Téléchargent sur Play Store (Android)
+  ✅ Ou téléchargent sur App Store (iOS)
+  ✅ Ou utilisent le site web (PWA)
+
+ADMIN:
+  ✅ Utilisent le site web (PWA)
+  ✅ Ou téléchargent l'app Desktop Windows/.exe
+  ✅ Ou téléchargent l'app Desktop macOS/.dmg
+
+
+═══════════════════════════════════════════════════════════════════════════════
+  🚀 PROCHAINES ÉTAPES
+═══════════════════════════════════════════════════════════════════════════════
+
+1. Dis-moi par où tu veux commencer :
+   [ ] PWA d'abord (recommandé, le plus rapide)
+   [ ] React Native d'abord (plateforme mobile complète)
+   [ ] Electron d'abord (app desktop)
+   [ ] Les trois en même temps!
+
+2. J'ai besoin de ces infos:
+   ☐ Nom de domaine pour PWA? (exemple: ctc-sante.fr)
+   ☐ Email pour comptes Expo/Apple/Google Play?
+   ☐ Budget pour frais développeur (Apple $99/an, Google $25 une fois)?
+
+3. Une fois que tu dis "go", je vais:
+   ✅ Configurer tous les fichiers
+   ✅ Tester localement
+   ✅ Préparer pour déploiement
+   ✅ Créer les builds finaux
+
+PRÊT À LANCER? 🚀

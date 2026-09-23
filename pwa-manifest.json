@@ -1,0 +1,77 @@
+{
+  "name": "CTC Santé - Gestion Taxis Conventionnés",
+  "short_name": "CTC Santé",
+  "description": "Application de gestion des transports médicaux conventionnés en Hauts-de-France",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#ffffff",
+  "theme_color": "#3A8B8B",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/maskable-icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "categories": ["medical", "business"],
+  "screenshots": [
+    {
+      "src": "/screenshot-1.png",
+      "sizes": "540x720",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Écran de login CTC Santé"
+    },
+    {
+      "src": "/screenshot-2.png",
+      "sizes": "1280x800",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "Tableau de bord administrateur"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Créer une Course",
+      "short_name": "Nouvelle Course",
+      "description": "Créer rapidement une nouvelle course médicale",
+      "url": "/?shortcut=create-course",
+      "icons": [
+        {
+          "src": "/shortcut-icon-96.png",
+          "sizes": "96x96",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "Voir Courses",
+      "short_name": "Mes Courses",
+      "description": "Affiche mes courses en attente",
+      "url": "/?shortcut=courses",
+      "icons": [
+        {
+          "src": "/shortcut-icon-96.png",
+          "sizes": "96x96",
+          "type": "image/png"
+        }
+      ]
+    }
+  ],
+  "prefer_related_applications": false
+}

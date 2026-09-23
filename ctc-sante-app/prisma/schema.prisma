@@ -1,0 +1,188 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  ADMIN
+  TAXI
+  ETABLISSEMENT
+}
+
+enum ValidationStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+enum SubscriptionStatus {
+  PENDING
+  ACTIVE
+  LATE
+  SUSPENDED
+}
+
+enum TripType {
+  IMMEDIATE
+  PROGRAMMED
+}
+
+enum TripStatus {
+  NEW
+  ASSIGNED
+  EN_ROUTE
+  DONE
+  CANCELLED
+}
+
+enum PaymentMode {
+  BON_PRESENT
+  PAYE_PATIENT
+}
+
+enum SubscriptionPaymentStatus {
+  PENDING
+  COMPLETED
+  FAILED
+}
+
+model User {
+  id                    String    @id @default(cuid())
+  email                 String    @unique
+  passwordHash          String
+  role                  UserRole
+  validationStatus      ValidationStatus @default(PENDING)
+  subscriptionStatus    SubscriptionStatus @default(PENDING)
+  subscriptionEndAt     DateTime?
+  createdAt             DateTime  @default(now())
+  updatedAt             DateTime  @updatedAt
+
+  // Relations
+  taxiProfile           TaxiProfile?
+  facilityProfile       FacilityProfile?
+  trips                 Trip[] @relation("TaxiTrips")
+  facilitySentTrips     Trip[] @relation("FacilityTrips")
+  subscriptionPayments  SubscriptionPayment[]
+
+  @@index([email])
+  @@index([validationStatus])
+  @@index([subscriptionStatus])
+}
+
+model TaxiProfile {
+  id                String    @id @default(cuid())
+  userId            String    @unique
+  nom               String
+  prenom            String
+  phone             String
+  immatriculation   String
+  isAvailable       Boolean   @default(false)
+  lastLat           Float?
+  lastLng           Float?
+  lastSeenAt        DateTime?
+  calendarColor     String    @default("#3A8B8B")
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+
+  // Relations
+  user              User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([isAvailable])
+}
+
+model FacilityProfile {
+  id                String    @id @default(cuid())
+  userId            String    @unique
+  name              String
+  address           String
+  contactName       String
+  phone             String
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+
+  // Relations
+  user              User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  trips             Trip[] @relation("FacilityProfileTrips")
+
+  @@index([userId])
+}
+
+model Patient {
+  id                String    @id @default(cuid())
+  firstName         String
+  lastName          String
+  phone             String?
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+
+  // Relations
+  trips             Trip[]
+
+  @@index([firstName, lastName])
+}
+
+model Trip {
+  id                String    @id @default(cuid())
+  facilityId        String
+  patientId         String
+  service           String
+  chambre           String?
+  pickupAddress     String
+  dropoffAddress    String
+  scheduledAt       DateTime
+  type              TripType
+  status            TripStatus @default(NEW)
+  taxiUserId        String?
+  distanceKm        Float?
+  over150km         Boolean   @default(false)
+  paymentMode       PaymentMode
+  bonVerified       Boolean   @default(false)
+  pmtOk             Boolean   @default(false)
+  bulletinOk        Boolean   @default(false)
+  accordOk          Boolean?  // NULL if not over150km
+  commentFacility   String?
+  commentAdmin      String?
+  commentTaxi       String?
+  nextApptAt        DateTime?
+  nextApptNote      String?
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+
+  // Relations
+  facility          FacilityProfile @relation("FacilityProfileTrips", fields: [facilityId], references: [id], onDelete: Cascade)
+  patient           Patient   @relation(fields: [patientId], references: [id], onDelete: Cascade)
+  taxiUser          User?     @relation("TaxiTrips", fields: [taxiUserId], references: [id], onDelete: SetNull)
+  facilityUser      User      @relation("FacilityTrips", fields: [facilityId], references: [id])
+
+  @@index([facilityId])
+  @@index([patientId])
+  @@index([taxiUserId])
+  @@index([status])
+  @@index([scheduledAt])
+  @@index([createdAt])
+}
+
+model SubscriptionPayment {
+  id                String    @id @default(cuid())
+  userId            String
+  stripeSessionId   String?
+  amount            Int       // Cents
+  status            SubscriptionPaymentStatus @default(PENDING)
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+
+  // Relations
+  user              User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([stripeSessionId])
+  @@index([status])
+}

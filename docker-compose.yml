@@ -1,0 +1,79 @@
+version: '3.8'
+
+services:
+  # PostgreSQL Database
+  postgres:
+    image: postgres:14-alpine
+    container_name: ctc-postgres
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+      POSTGRES_DB: ctc_sante
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - ctc-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Next.js Application
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: ctc-sante
+    environment:
+      DATABASE_URL: "postgresql://postgres:postgres@postgres:5432/ctc_sante"
+      NEXTAUTH_URL: "http://localhost:3000"
+      NEXTAUTH_SECRET: ${NEXTAUTH_SECRET:-dev-secret-change-in-production-at-least-32-chars}
+      STRIPE_SECRET_KEY: ${STRIPE_SECRET_KEY:-sk_test_placeholder}
+      NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: ${NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY:-pk_test_placeholder}
+      STRIPE_WEBHOOK_SECRET: ${STRIPE_WEBHOOK_SECRET:-whsec_test_placeholder}
+      NODE_ENV: ${NODE_ENV:-development}
+    ports:
+      - "3000:3000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    volumes:
+      - .:/app
+      - /app/.next
+      - /app/node_modules
+    networks:
+      - ctc-network
+    command: >
+      sh -c "npx prisma migrate deploy && npx prisma db seed && npm run dev"
+
+  # Prisma Studio (Optional)
+  prisma-studio:
+    image: node:20-alpine
+    container_name: ctc-prisma-studio
+    working_dir: /app
+    environment:
+      DATABASE_URL: "postgresql://postgres:postgres@postgres:5432/ctc_sante"
+    ports:
+      - "5555:5555"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    volumes:
+      - .:/app
+    networks:
+      - ctc-network
+    command: >
+      sh -c "npm install && npx prisma studio"
+    profiles:
+      - optional
+
+volumes:
+  postgres_data:
+    driver: local
+
+networks:
+  ctc-network:
+    driver: bridge

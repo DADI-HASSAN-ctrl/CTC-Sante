@@ -1,0 +1,184 @@
+╔════════════════════════════════════════════════════════════════════════════╗
+║         🚀 DÉMARRAGE RAPIDE CTC SANTÉ - APPLICATION MOBILE                 ║
+║                    (< 10 minutes pour chaque plateforme)                    ║
+╚════════════════════════════════════════════════════════════════════════════╝
+
+═══════════════════════════════════════════════════════════════════════════════
+📋 PRÉREQUIS GÉNÉRAUX (à faire UNE FOIS)
+═══════════════════════════════════════════════════════════════════════════════
+
+1. Installer Node.js 18+ : https://nodejs.org
+2. Installer Expo CLI globalement :
+   npm install -g eas-cli
+
+3. Vérifier l'installation :
+   node --version
+   npm --version
+
+═══════════════════════════════════════════════════════════════════════════════
+🔴 OPTION 1 : EXPO GO - TESTER IMMÉDIATEMENT (2 minutes)
+═══════════════════════════════════════════════════════════════════════════════
+
+✅ LA FAÇON LA PLUS RAPIDE - Pas de build, teste sur téléphone/simulateur immédiatement
+
+ÉTAPE 1 : Installer Expo Go sur votre téléphone
+   → App Store (iPhone)
+   → Google Play Store (Android)
+
+ÉTAPE 2 : Lancer l'application
+   cd ctc-sante-mobile
+   npm install
+   npm start
+
+ÉTAPE 3 : Scanner le QR code avec Expo Go
+   → iPhone : App Appareil photo > Scanner QR
+   → Android : Ouvrir Expo Go > "Scan QR"
+
+✨ L'app se charge en < 30 secondes dans Expo Go
+
+COMPTES DE TEST :
+   Admin:         admin@ctc-sante.test / password
+   Taxi:          taxi1@test.fr / password
+   Établissement: hopital@test.fr / password
+
+═══════════════════════════════════════════════════════════════════════════════
+🟢 OPTION 2 : BUILD ANDROID (5-7 minutes) - FICHIER .APK TÉLÉCHARGEABLE
+═══════════════════════════════════════════════════════════════════════════════
+
+✅ Crée un fichier .apk que vous pouvez distribuer et installer sur n'importe quel Android
+
+ÉTAPE 1 : Configuration EAS (première fois uniquement)
+   cd ctc-sante-mobile
+   eas build:configure
+
+   Sélectionner :
+   ✓ Android: managed
+   ✓ iOS: managed (si vous avez un compte Apple)
+
+ÉTAPE 2 : Lancer le build
+   eas build --platform android
+
+   → Attend < 5 minutes
+   → Affiche lien de téléchargement .apk
+   → Télécharger et installer sur téléphone
+
+ÉTAPE 3 : Tester l'application
+   Installer le fichier .apk
+   Ouvrir l'app CTC Santé
+   Utiliser comptes de test ci-dessus
+
+📊 Fichier .apk peut être partagé par email/WhatsApp/Drive
+
+═══════════════════════════════════════════════════════════════════════════════
+🔵 OPTION 3 : BUILD iOS (10-15 minutes) - FICHIER .IPA POUR IPHONE
+═══════════════════════════════════════════════════════════════════════════════
+
+⚠️ PRÉREQUIS : Compte Apple Developer ($99/an)
+
+ÉTAPE 1 : Configuration (première fois)
+   cd ctc-sante-mobile
+   eas build:configure
+   → Sélectionner iOS: managed
+
+ÉTAPE 2 : Lancer le build
+   eas build --platform ios
+
+   → Attend < 10 minutes
+   → Crée fichier .ipa
+
+ÉTAPE 3 : Installer sur iPhone
+   Utiliser Apple Testflight OU installer directement via:
+   - Transférer fichier .ipa via iCloud/iTunes
+   - Utiliser Application Loader (Xcode)
+
+═══════════════════════════════════════════════════════════════════════════════
+🟡 OPTION 4 : SIMULATEUR LOCAL (3-5 minutes) - DÉVELOPPEMENT RAPIDE
+═══════════════════════════════════════════════════════════════════════════════
+
+✅ Simulateur iOS sur Mac OU Émulateur Android sur n'importe quel OS
+
+ANDROID (tous les systèmes) :
+   1. Installer Android Studio: https://developer.android.com/studio
+   2. Créer un émulateur virtuel (5 min)
+   3. Lancer :
+      cd ctc-sante-mobile
+      npm start
+      → Appuyer sur 'a' pour ouvrir dans l'émulateur
+
+iOS (Mac uniquement) :
+   1. Installer Xcode: App Store
+   2. Lancer :
+      cd ctc-sante-mobile
+      npm start
+      → Appuyer sur 'i' pour ouvrir dans le simulateur iOS
+
+═══════════════════════════════════════════════════════════════════════════════
+⚡ RACCOURCIS PRODUCTION (COPY-PASTE)
+═══════════════════════════════════════════════════════════════════════════════
+
+👇 Copier-coller EXACTEMENT ces commandes :
+
+--- EXPO GO IMMÉDIATEMENT ---
+cd ctc-sante-mobile && npm install && npm start
+
+--- BUILD ANDROID .APK ---
+cd ctc-sante-mobile && npm install && eas build --platform android --non-interactive
+
+--- BUILD iOS .IPA ---
+cd ctc-sante-mobile && npm install && eas build --platform ios --non-interactive
+
+--- DÉVELOPPEMENT LOCAL (ANDROID) ---
+cd ctc-sante-mobile && npm install && npm start
+# Puis appuyer sur 'a'
+
+--- DÉVELOPPEMENT LOCAL (iOS sur Mac) ---
+cd ctc-sante-mobile && npm install && npm start
+# Puis appuyer sur 'i'
+
+═══════════════════════════════════════════════════════════════════════════════
+✅ CHECKLIST DE VÉRIFICATION
+═══════════════════════════════════════════════════════════════════════════════
+
+Après le démarrage, vérifier :
+
+☑ Écran de connexion s'affiche
+☑ Connexion réussit avec admin@ctc-sante.test / password
+☑ Dashboard affiche stats (Courses, CA)
+☑ Menu "Mes Courses" fonctionne
+☑ Menu "Créer Course" accessible pour admin
+☑ Menu "Suivi Taxis" visible (admin uniquement)
+☑ Menu "Paramètres" affiche profil utilisateur
+☑ Bouton "Déconnexion" fonctionne
+
+═══════════════════════════════════════════════════════════════════════════════
+🆘 DÉPANNAGE RAPIDE
+═══════════════════════════════════════════════════════════════════════════════
+
+❌ "npm: commande non trouvée"
+   → Installer Node.js depuis https://nodejs.org
+
+❌ "EAS CLI not found"
+   → npm install -g eas-cli
+
+❌ "Port 8081 déjà utilisé"
+   → npm start -- --port 8082
+
+❌ "Cannot connect to metro bundler"
+   → Fermer tout, redémarrer: npm start
+
+❌ Erreur sur emulateur Android
+   → Relancer emulateur depuis Android Studio
+   → npm start
+   → Appuyer 'a'
+
+═══════════════════════════════════════════════════════════════════════════════
+📈 PROCHAINES ÉTAPES (après validation)
+═══════════════════════════════════════════════════════════════════════════════
+
+1. ✅ Tester sur Expo Go (MAINTENANT)
+2. 🔄 Build Android .apk (5 min, distribuable)
+3. 🔄 Configurer API backend réelle (remplacer test accounts)
+4. 🔄 Générer certificats de production
+5. 🔄 Publier sur Google Play Store / App Store
+
+═══════════════════════════════════════════════════════════════════════════════

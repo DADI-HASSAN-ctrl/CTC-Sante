@@ -1,0 +1,83 @@
+═══════════════════════════════════════════════════════════════════════════════
+  CTC SANTÉ - COMMANDES RAPIDES DE DÉPLOIEMENT
+═══════════════════════════════════════════════════════════════════════════════
+
+🟢 OPTION 1 : DÉMO IMMÉDIATE (0 installation requise)
+───────────────────────────────────────────────────────
+1. Ouvre le fichier : app-pro-v2.html
+   → Double-clique le fichier, il s'ouvre dans ton navigateur
+   → C'est tout ! 🎉
+
+Comptes de test :
+  Admin      : admin@ctc-sante.test / admin123
+  Taxi       : taxi1@test.fr / taxi123
+  Établissement : hopital@test.fr / hopital123
+
+
+🟢 OPTION 2 : DÉPLOIEMENT DOCKER (Production-ready)
+────────────────────────────────────────────────────
+
+PRÉREQUIS : Avoir Docker installé
+  Télécharge ici → https://www.docker.com/products/docker-desktop
+
+COMMANDES À COPIER/COLLER :
+
+1️⃣  Accède au dossier
+    cd ctc-sante-app
+
+2️⃣  Lance l'application (première fois = 5-10 min, après = 30 sec)
+    docker compose up --build
+
+3️⃣  ✅ Ouvre dans le navigateur
+    http://localhost:3000
+
+4️⃣  Pour arrêter
+    docker compose down
+
+5️⃣  Pour voir les logs
+    docker compose logs -f
+
+COMPTES DE TEST (même que démo) :
+  Admin      : admin@ctc-sante.test / admin123
+  Taxi       : taxi1@test.fr / taxi123
+  Établissement : hopital@test.fr / hopital123
+
+
+🟡 OPTION 3 : NPM (Si Docker ne fonctionne pas)
+──────────────────────────────────────────────
+
+PRÉREQUIS :
+  • Node.js 18+ → https://nodejs.org
+  • PostgreSQL 14+ → https://www.postgresql.org/download
+
+COMMANDES À COPIER/COLLER :
+
+1️⃣  Accède au dossier
+    cd ctc-sante-app
+
+2️⃣  Installe les paquets
+    npm install
+
+3️⃣  Configure la base de données
+    • Lance PostgreSQL (voir guide complet pour détails)
+    • Crée la base : createdb ctc_sante -U postgres
+    • Édite .env.local avec ton mot de passe
+
+4️⃣  Initialise la base de données
+    npm run db:push
+    npm run db:seed
+
+5️⃣  Lance l'appli
+    npm run dev
+
+6️⃣  ✅ Ouvre dans le navigateur
+    http://localhost:3000
+
+
+═══════════════════════════════════════════════════════════════════════════════
+  RECOMMANDATION : Commence par la DÉMO HTML, puis migre vers DOCKER
+═══════════════════════════════════════════════════════════════════════════════
+
+Besoin d'aide ?
+  → Consulte GUIDE_DEPLOIEMENT_LOCAL.md pour tous les détails
+  → Les logs t'aideront à trouver le problème : docker compose logs -f
